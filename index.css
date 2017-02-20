@@ -1,0 +1,61 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+.ny-slider {
+	margin: 100px 300px;
+	position: relative;
+	width: 498px;
+	height: 30px;
+	padding: 0 8px;
+	border: 1px solid #ccc;
+	background-color: #efefef;
+	border-radius: 5px;
+}
+.ny-slider-item {
+	box-sizing: border-box;
+	float: left;
+	line-height: 30px;
+	border-right: 1px solid #0095ac;
+	text-align: right;
+	cursor: pointer;
+}
+.ny-slider-item:last-child {
+	border-right: none;
+}
+.slider-item-number {
+	color: #999;
+	margin-right: 8px;
+}
+.ny-slider-range {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0;
+	height: 100%;
+	line-height: 30px;
+	overflow: hidden;
+	background-color: #00c1de;
+}
+.ny-slider-range-current {
+	width: 500px;
+}
+.ny-slider-range-item {
+	float: left;
+	text-align: right;
+	cursor: pointer;
+}
+.range-item-number {
+	color: #fff;
+	margin-right: 10px;
+}
+.ny-slider-btn {
+	position: absolute;
+	top: -2px;
+	left: 0;
+	width: 16px;
+	height: 34px;
+	background-color: #0095ac;
+	cursor: pointer;
+	z-index: 3;
+}

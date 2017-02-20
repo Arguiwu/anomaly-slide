@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+	<button id="less">-</button><input type="text" id="text" value="2"><button id="add">+</button>
+	<button id="enter">确定</button>
+	<div class="ny-slider" id="NYslider">
+		<div class="ny-slider-item-box"></div>
+		<div class="ny-slider-range">
+			<div class="ny-slider-range-current"></div>
+		</div>
+		<div class="ny-slider-btn" data-w="500"></div>
+	</div>
+
+
+	<div class="ny-slider" id="NYslider2">
+		<div class="ny-slider-item-box"></div>
+		<div class="ny-slider-range">
+			<div class="ny-slider-range-current"></div>
+		</div>
+		<div class="ny-slider-btn" data-w="500"></div>
+	</div>
+
+	<div class="ny-slider" id="NYslider3">
+		<div class="ny-slider-item-box"></div>
+		<div class="ny-slider-range">
+			<div class="ny-slider-range-current"></div>
+		</div>
+		<div class="ny-slider-btn" data-w="500"></div>
+	</div>
+
+	<script type="text/javascript" src="index.js"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			var settings = {
+				step: 1,
+				default: 50,
+				min: 1,
+				max: 200,
+				value: [50, 100, 200],
+				width: [50, 25,25],
+				unit: 'M',
+				maxwidth: 500,
+				callback: function(value) {
+					document.getElementById('text').value = value;
+				}
+			};
+			var nydrag = new NYdrag('NYslider', settings);
+			nydrag.init();
+			
+			document.getElementById('add').addEventListener('click', function() {
+				nydrag.add();
+			});
+			document.getElementById('less').addEventListener('click', function() {
+				nydrag.less();
+			});
+
+			document.getElementById('enter').addEventListener('click', function() {
+				var value = document.getElementById('text').value;
+				nydrag.moveto(value);
+			});
+
+			var settings2 = {
+				step: 1,
+				default: 50,
+				min: 1,
+				max: 400,
+				value: [50, 100, 200, 400],
+				width: [50, 25,15, 10],
+				unit: 'G',
+				maxwidth: 500,
+				callback: function(value) {
+					document.getElementById('text').value = value;
+				}
+			};
+
+			var nydrag2 = new NYdrag('NYslider2', settings2);
+			nydrag2.init();
+
+
+			var settings3 = {
+				step: 1,
+				default: 50,
+				min: 1,
+				max: 300,
+				value: [5,10,20,30,50,100,200,300],
+				width: [12.5,12.5,12.5,12.5,12.5,12.5,12.5,12.5],
+				unit: 'G',
+				maxwidth: 500,
+				callback: function(value) {
+					document.getElementById('text').value = value;
+				}
+			};
+
+			var nydrag3 = new NYdrag('NYslider3', settings3);
+			nydrag3.init();
+
+		};
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
