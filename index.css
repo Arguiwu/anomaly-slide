@@ -41,9 +41,14 @@
 	width: 500px;
 }
 .ny-slider-range-item {
+	box-sizing: border-box;
 	float: left;
 	text-align: right;
+	border-right: 1px solid #2dacd1;
 	cursor: pointer;
+}
+.ny-slider-range-item:last-child {
+	border-right: none;
 }
 .range-item-number {
 	color: #fff;

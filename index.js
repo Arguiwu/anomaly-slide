@@ -29,6 +29,20 @@
 		this.range.querySelector('.ny-slider-range-current').innerHTML = numberHTML;
 		this.itembox.innerHTML = itemHTML;
 		this.moveto(settings.default);
+
+		this.main.addEventListener('click', function(e) {
+			var e = e || window.event;
+			var width = e.clientX - this.offsetLeft;
+
+			var maxWidth = me.settings.maxwidth;
+			var minDiffer = me.settings.min / me.settings.max * maxWidth;
+			var maxDiffer = maxWidth;
+				
+			if(width >= minDiffer && width <= maxDiffer) {
+				me.mousemove(e, width);
+			}
+
+		});
 	};
 	NYdrag.prototype.mousedown = function(e) {
 		var me = this;
