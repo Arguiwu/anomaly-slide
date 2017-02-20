@@ -33,9 +33,13 @@
 	left: 0;
 	width: 0;
 	height: 100%;
+	padding: 0 8px;
 	line-height: 30px;
 	overflow: hidden;
 	background-color: #00c1de;
+}
+.ny-slider-item-box {
+	width: 500px;
 }
 .ny-slider-range-current {
 	width: 500px;
@@ -44,7 +48,7 @@
 	box-sizing: border-box;
 	float: left;
 	text-align: right;
-	border-right: 1px solid #2dacd1;
+	border-right: 1px solid #0095ac;
 	cursor: pointer;
 }
 .ny-slider-range-item:last-child {
@@ -52,7 +56,7 @@
 }
 .range-item-number {
 	color: #fff;
-	margin-right: 10px;
+	margin-right: 8px;
 }
 .ny-slider-btn {
 	position: absolute;
