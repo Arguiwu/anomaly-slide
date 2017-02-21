@@ -1,6 +1,6 @@
 (function(window) {
-	var NYdrag = function(id, options) {
-		this.main = document.getElementById(id);
+	var NYdrag = function(id, options, el) {
+		this.main = el || document.getElementById(id);
 		this.settings = options;
 		this.value= this.settings.default;
 		this.obj =  this.main.querySelector('.ny-slider-btn');
@@ -23,8 +23,8 @@
 			var width = settings.width[i] || (len+1) / 10;
 			var value = settings.value[i];
 			var unit = settings.unit;
-			itemHTML += '<div class="ny-slider-item" style="width: ' + width + '%;"><span class="slider-item-number">'+ value + unit +'</span></div>';
-			numberHTML += '<div class="ny-slider-range-item" style="width: ' + width + '%;"><span class="range-item-number">'+ value + unit +'</span></div>';
+			itemHTML += '<div class="ny-slider-item" style="width: ' + width + '%;" data-index="'+i+'"><span class="slider-item-number">'+ value + unit +'</span></div>';
+			numberHTML += '<div class="ny-slider-range-item" style="width: ' + width + '%;" data-index="'+i+'"><span class="range-item-number">'+ value + unit +'</span></div>';
 		}
 		this.range.querySelector('.ny-slider-range-current').innerHTML = numberHTML;
 		this.itembox.innerHTML = itemHTML;
@@ -33,15 +33,19 @@
 		this.main.addEventListener('click', function(e) {
 			var e = e || window.event;
 			var width = e.clientX - getLeft(this);
+			var index = e.target.getAttribute('data-index') || e.target.parentNode.getAttribute('data-index');
 
 			var maxWidth = me.settings.maxwidth;
 			var minDiffer = me.settings.min / me.settings.max * maxWidth;
 			var maxDiffer = maxWidth;
-				
-			if(width >= minDiffer && width <= maxDiffer) {
-				me.mousemove(e, width);
+			if(index) {
+				var minValue = me.settings.value[index];
+				if(width >= minDiffer && width <= maxDiffer) {
+					me.mousemove(e, width, minValue, function(v) {
+						me.settings.onceCall(v);
+					});
+				}
 			}
-
 		});
 	};
 	NYdrag.prototype.mousedown = function(e) {
@@ -55,7 +59,7 @@
 			me.mouseup();
 		}
 	};
-	NYdrag.prototype.mousemove = function(e, clickWidth) {
+	NYdrag.prototype.mousemove = function(e, clickWidth, minValue, myCall) {
 		var me = this;
 		var maxWidth = me.settings.maxwidth;
 		var differX = clickWidth || e.clientX - me.disX;
@@ -65,6 +69,9 @@
 			setTimeout(function() {
 				me.obj.style.left = differX + 'px';
 				me.range.style.width = differX + 'px';
+				if(minValue) {
+					me.value = minValue;
+				}
 				var index = me.sector(me.settings.value, me.value);
 				var value;
 
@@ -80,11 +87,14 @@
 				}
 				if(value < me.settings.min) {
 					value = me.settings.min;
+					me.moveto(value);
 				}else if(value > me.settings.max) {
 					value = me.settings.max;
+					me.moveto(value);
 				}
 				me.value = value;
 				me.settings.callback(value);
+				myCall && myCall(value);
 			},10);
 		}
 	};
@@ -126,6 +136,7 @@
 	NYdrag.prototype.mouseup = function() {
 		document.onmousemove = null;
 		document.onmouseup = null;
+		this.settings.onceCall(this.value);
 	}
 	NYdrag.prototype.sector = function(array, value) {
 		for(var i = 0; i < array.length; i++) {
