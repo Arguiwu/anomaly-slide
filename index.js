@@ -32,7 +32,7 @@
 
 		this.main.addEventListener('click', function(e) {
 			var e = e || window.event;
-			var width = e.clientX - this.offsetLeft;
+			var width = e.clientX - getLeft(this);
 
 			var maxWidth = me.settings.maxwidth;
 			var minDiffer = me.settings.min / me.settings.max * maxWidth;
@@ -157,6 +157,11 @@
 	    };
 	}
 
+	function getLeft(e){ 
+		var offset = e.offsetLeft; 
+		if(e.offsetParent!=null) offset+=getLeft(e.offsetParent); 
+		return offset; 
+	}
 	if (!document.querySelector) {
 	    document.querySelector = function (selectors) {
 	        var elements = document.querySelectorAll(selectors);
