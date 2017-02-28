@@ -18,32 +18,15 @@
 		</div>
 	</div>
 
-
-	<div class="ny-slider" id="NYslider2">
-		<div class="ny-slider-item-box"></div>
-		<div class="ny-slider-range">
-			<div class="ny-slider-range-current"></div>
-		</div>
-		<div class="ny-slider-btn" data-w="500"></div>
-	</div>
-
-	<div class="ny-slider ny-slider3">
-		<div class="ny-slider-item-box"></div>
-		<div class="ny-slider-range">
-			<div class="ny-slider-range-current"></div>
-		</div>
-		<div class="ny-slider-btn" data-w="500"></div>
-	</div>
-
-	<script type="text/javascript" src="index.js"></script>
+	<script type="text/javascript" src="anomaly-slide.js"></script>
 	<script type="text/javascript">
 		window.onload = function() {
 			var settings = {
-				step: 1,
-				default: 50,
-				min: 1,
-				max: 200,
-				value: [50, 100, 200],
+				step: 5,
+				defaultVal: 5,
+				min: 5,
+				max: 300,
+				value: [10, 50, 300],
 				width: [50, 25,25],
 				unit: 'M',
 				maxwidth: 500,
@@ -51,7 +34,7 @@
 					document.getElementById('text').value = value;
 				},
 				onceCall: function(value) {
-					console.log(value)
+					
 				}
 			};
 			var nydrag = new NYdrag('NYslider', settings);
@@ -68,42 +51,6 @@
 				var value = document.getElementById('text').value;
 				nydrag.moveto(value);
 			});
-
-			var settings2 = {
-				step: 1,
-				default: 50,
-				min: 1,
-				max: 400,
-				value: [50, 100, 200, 400],
-				width: [50, 25,15, 10],
-				unit: 'G',
-				maxwidth: 500,
-				callback: function(value) {
-					document.getElementById('text').value = value;
-				}
-			};
-
-			var nydrag2 = new NYdrag('NYslider2', settings2);
-			nydrag2.init();
-
-
-			var settings3 = {
-				step: 1,
-				default: 50,
-				min: 1,
-				max: 300,
-				value: [5,10,20,30,50,100,200,300],
-				width: [12.5,12.5,12.5,12.5,12.5,12.5,12.5,12.5],
-				unit: 'G',
-				maxwidth: 500,
-				callback: function(value) {
-					document.getElementById('text').value = value;
-				}
-			};
-
-			var nydrag3 = new NYdrag('', settings3, document.querySelector('.ny-slider3'));
-			nydrag3.init();
-
 		};
 	</script>
 </body>
